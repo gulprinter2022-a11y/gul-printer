@@ -32,6 +32,16 @@
   .links a{padding:10px 12px;border-radius:10px}
   .links a:hover{background:#f5f7f9}
 }
+
+.mobile-menu{display:none;position:relative}
+.mobile-menu summary{list-style:none;cursor:pointer;border:1px solid #dce7ee;background:#fff;padding:9px 12px;border-radius:999px;font-weight:800}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu[open] .mobile-menu-panel{display:flex}
+.mobile-menu-panel{position:absolute;right:0;top:48px;min-width:210px;display:none;flex-direction:column;gap:2px;background:#fff;border:1px solid #e1eaf0;border-radius:16px;padding:10px;box-shadow:0 14px 34px rgba(18,60,84,.14);z-index:100}
+.mobile-menu-panel a{padding:10px 12px;border-radius:10px;font-weight:800;font-size:14px}
+.mobile-menu-panel a:hover{background:#f2f8fb;color:#006BB0}
+@media(max-width:900px){.mobile-menu{display:block}}
+[dir=rtl] .mobile-menu-panel{right:auto;left:0}
 </style>
 <link rel="canonical" href="https://gul-printer.vercel.app/services.html">
 <meta property="og:title" content="Printing & Graphic Design Services | Gul Printer Peshawar">
@@ -46,6 +56,16 @@
 <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
 <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
 <nav class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html" class="active">Services</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></nav>
+<details class="mobile-menu">
+  <summary>Menu</summary>
+  <div class="mobile-menu-panel">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</details>
 <button class="lang" id="langBtn">EN | اردو</button>
 <a class="btn blue" href="https://wa.me/923169827450?text=Assalam-o-Alaikum%2C%20I%20want%20information%20about%20your%20printing%20services." target="_blank">WhatsApp</a>
 </div></header>
