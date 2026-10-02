@@ -98,8 +98,19 @@
 
 <footer class="footer"><div class="wrap"><div class="foot"><div><h4>Gul Printer</h4><p>From Vision to Print</p></div><div><h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></div><div><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms & Conditions</a></div></div><div class="copy">© 2026 Gul Printer. All rights reserved.</div></div></footer>
 <script>
-const b=document.getElementById('langBtn');let ur=false;
-b.onclick=()=>{ur=!ur;document.documentElement.lang=ur?'ur':'en';document.documentElement.dir=ur?'rtl':'ltr';document.querySelectorAll('[data-en]').forEach(x=>{const v=x.getAttribute(ur?'data-ur':'data-en');if(v.includes('<'))x.innerHTML=v;else x.textContent=v});b.textContent=ur?'اردو | EN':'EN | اردو'};
+const langBtn=document.getElementById('langBtn');
+let ur=localStorage.getItem('gp-lang')==='ur';
+function applyLang(){
+  document.documentElement.lang=ur?'ur':'en';
+  document.documentElement.dir=ur?'rtl':'ltr';
+  document.querySelectorAll('[data-en]').forEach(x=>{
+    const v=x.getAttribute(ur?'data-ur':'data-en');
+    if(v!==null){if(v.includes('<'))x.innerHTML=v;else x.textContent=v;}
+  });
+  if(langBtn) langBtn.textContent=ur?'اردو | EN':'EN | اردو';
+}
+applyLang();
+if(langBtn) langBtn.onclick=()=>{ur=!ur;localStorage.setItem('gp-lang',ur?'ur':'en');applyLang();};
 </script>
 <script>
 (()=>{const menuToggle=document.querySelector('.menu-toggle');const navLinks=document.querySelector('.links');if(menuToggle&&navLinks){menuToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuToggle.setAttribute('aria-expanded',open?'true':'false');menuToggle.textContent=open?'✕':'☰';});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';}));}})();
