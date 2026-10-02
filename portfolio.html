@@ -151,8 +151,19 @@
 <a class="whatsapp" aria-label="WhatsApp" href="https://wa.me/923169827450?text=Assalam-o-Alaikum%2C%20I%20would%20like%20information%20about%20Gul%20Printer%20design%20and%20printing%20services." target="_blank" rel="noopener">WA</a>
 
 <script>
-const langBtn=document.getElementById('langBtn');let ur=false;
-langBtn.onclick=()=>{ur=!ur;document.documentElement.lang=ur?'ur':'en';document.documentElement.dir=ur?'rtl':'ltr';document.querySelectorAll('[data-en]').forEach(x=>{const v=x.getAttribute(ur?'data-ur':'data-en');if(v.includes('<'))x.innerHTML=v;else x.textContent=v});langBtn.textContent=ur?'اردو | EN':'EN | اردو'};
+const langBtn=document.getElementById('langBtn');
+let ur=localStorage.getItem('gp-lang')==='ur';
+function applyLang(){
+  document.documentElement.lang=ur?'ur':'en';
+  document.documentElement.dir=ur?'rtl':'ltr';
+  document.querySelectorAll('[data-en]').forEach(x=>{
+    const v=x.getAttribute(ur?'data-ur':'data-en');
+    if(v!==null){if(v.includes('<'))x.innerHTML=v;else x.textContent=v;}
+  });
+  if(langBtn) langBtn.textContent=ur?'اردو | EN':'EN | اردو';
+}
+applyLang();
+if(langBtn) langBtn.onclick=()=>{ur=!ur;localStorage.setItem('gp-lang',ur?'ur':'en');applyLang();};
 
 const filters=[...document.querySelectorAll('.filter')], works=[...document.querySelectorAll('.work')];
 const ctaTitle=document.getElementById('ctaTitle'),ctaText=document.getElementById('ctaText'),ctaLink=document.getElementById('ctaLink');
