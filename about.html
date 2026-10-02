@@ -14,15 +14,6 @@
 @media(max-width:900px){.links{display:none}.hero-grid,.founder,.two{grid-template-columns:1fr}.values,.industries{grid-template-columns:repeat(2,1fr)}.strengths{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}.cta{align-items:flex-start;flex-direction:column}}
 @media(max-width:560px){.wrap{width:min(100% - 24px,1140px)}.nav{min-height:68px}.brand img{width:48px;height:48px}.hero{padding:54px 0}.hero h1{font-size:44px}.hero-card{min-height:auto}.values,.industries,.qual,.foot{grid-template-columns:1fr}.section{padding:56px 0}}
 
-.mobile-menu-btn{display:none;border:1px solid #dce7ee;background:#fff;border-radius:12px;width:42px;height:42px;align-items:center;justify-content:center;font-size:20px;font-weight:900;cursor:pointer}
-@media(max-width:900px){
-  .mobile-menu-btn{display:flex}
-  .nav{position:relative}
-  .links{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid #e4edf2;border-radius:0 0 16px 16px;box-shadow:0 14px 30px rgba(19,58,80,.10);padding:12px 18px;flex-direction:column;gap:4px}
-  .links.open{display:flex}
-  .links a{padding:10px 6px}
-}
-
 .menu-toggle{display:none;border:1px solid #dce7ee;background:#fff;color:#23313d;border-radius:12px;width:42px;height:42px;font-size:20px;font-weight:900;cursor:pointer}
 @media(max-width:900px){
   .menu-toggle{display:grid;place-items:center}
@@ -33,15 +24,6 @@
   .links a:hover{background:#f5f7f9}
 }
 
-.mobile-menu{display:none;position:relative}
-.mobile-menu summary{list-style:none;cursor:pointer;border:1px solid #dce7ee;background:#fff;padding:9px 12px;border-radius:999px;font-weight:800}
-.mobile-menu summary::-webkit-details-marker{display:none}
-.mobile-menu[open] .mobile-menu-panel{display:flex}
-.mobile-menu-panel{position:absolute;right:0;top:48px;min-width:210px;display:none;flex-direction:column;gap:2px;background:#fff;border:1px solid #e1eaf0;border-radius:16px;padding:10px;box-shadow:0 14px 34px rgba(18,60,84,.14);z-index:100}
-.mobile-menu-panel a{padding:10px 12px;border-radius:10px;font-weight:800;font-size:14px}
-.mobile-menu-panel a:hover{background:#f2f8fb;color:#006BB0}
-@media(max-width:900px){.mobile-menu{display:block}}
-[dir=rtl] .mobile-menu-panel{right:auto;left:0}
 </style>
 <link rel="canonical" href="https://gul-printer.vercel.app/about.html">
 <meta property="og:title" content="About Gul Printer | Design & Printing in Peshawar">
@@ -54,18 +36,7 @@
 <header class="top"><div class="wrap nav">
 <a class="brand" href="index.html"><img src="logo.svg" alt="Gul Printer logo"></a>
 <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
-<button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
 <nav class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="portfolio.html">Portfolio</a><a href="contact.html">Contact</a></nav>
-<details class="mobile-menu">
-  <summary>Menu</summary>
-  <div class="mobile-menu-panel">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</details>
 <button class="lang" id="langBtn">EN | اردو</button>
 <a class="btn blue" href="https://wa.me/923169827450?text=Assalam-o-Alaikum%2C%20I%20want%20information%20about%20Gul%20Printer." target="_blank">WhatsApp</a>
 </div></header>
@@ -122,24 +93,6 @@
 const b=document.getElementById('langBtn');let ur=false;
 b.onclick=()=>{ur=!ur;document.documentElement.lang=ur?'ur':'en';document.documentElement.dir=ur?'rtl':'ltr';document.querySelectorAll('[data-en]').forEach(x=>{const v=x.getAttribute(ur?'data-ur':'data-en');if(v.includes('<'))x.innerHTML=v;else x.textContent=v});b.textContent=ur?'اردو | EN':'EN | اردو'};
 </script>
-
-<script>
-const menuBtn=document.getElementById('mobileMenuBtn');
-const menuLinks=document.querySelector('.links');
-if(menuBtn&&menuLinks){
-  menuBtn.addEventListener('click',()=>{
-    const open=menuLinks.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded',open?'true':'false');
-    menuBtn.textContent=open?'×':'☰';
-  });
-  menuLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-    menuLinks.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded','false');
-    menuBtn.textContent='☰';
-  }));
-}
-</script>
-
 <script>
 (()=>{const menuToggle=document.querySelector('.menu-toggle');const navLinks=document.querySelector('.links');if(menuToggle&&navLinks){menuToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuToggle.setAttribute('aria-expanded',open?'true':'false');menuToggle.textContent=open?'✕':'☰';});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';}));}})();
 </script>
