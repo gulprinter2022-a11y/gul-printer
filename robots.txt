@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gul-printer.vercel.app/sitemap.xml
