@@ -34,14 +34,14 @@
     const addr=L==='ur'?(b.address_ur||b.address_en):(b.address_en||b.address_ur);
     const holiday=L==='ur'?(b.weekly_holiday_ur||b.weekly_holiday_en):(b.weekly_holiday_en||b.weekly_holiday_ur);
     const set=(id,val)=>{const e=document.getElementById(id);if(e&&val)e.textContent=val};
-    set('cmsPhone',b.phone);set('cmsWhatsapp',b.whatsapp);set('cmsEmail',b.email);set('cmsAddress',addr);set('cmsHoliday',holiday);set('cmsHeroAddress',addr);
+    set('cmsPhone',b.phone);set('cmsWhatsapp',b.whatsapp);set('cmsEmail',b.email);set('cmsAddress',addr);set('cmsHoliday',holiday);set('cmsHeroAddress',addr);document.querySelectorAll('[data-cms-phone-text]').forEach(e=>{if(b.phone)e.textContent=b.phone});document.querySelectorAll('[data-cms-whatsapp-text]').forEach(e=>{if(b.whatsapp)e.textContent=b.whatsapp});document.querySelectorAll('[data-cms-email-text]').forEach(e=>{if(b.email)e.textContent=b.email});document.querySelectorAll('[data-cms-address-text]').forEach(e=>{if(addr)e.textContent=addr});document.querySelectorAll('[data-cms-holiday-text]').forEach(e=>{if(holiday)e.textContent=holiday});
     const wa=normPhone(b.whatsapp||b.phone);
     document.querySelectorAll('a[data-cms-wa]').forEach(a=>{const msg=L==='ur'?(b.whatsapp_default_message_ur||b.whatsapp_default_message_en):(b.whatsapp_default_message_en||b.whatsapp_default_message_ur);a.href='https://wa.me/'+wa+'?text='+encodeURIComponent(msg||'Assalam-o-Alaikum');});
     document.querySelectorAll('a[data-cms-call]').forEach(a=>a.href='tel:+'+normPhone(b.phone));
-    const map=document.getElementById('cmsMapLink');if(map&&b.google_maps_url)map.href=b.google_maps_url;
-    const fb=document.getElementById('cmsFacebook');if(fb&&b.facebook_url)fb.href=b.facebook_url;
-    const ig=document.getElementById('cmsInstagram');if(ig&&b.instagram_url)ig.href=b.instagram_url;
-    const tt=document.getElementById('cmsTikTok');if(tt&&b.tiktok_url)tt.href=b.tiktok_url;
+    const map=document.getElementById('cmsMapLink');if(map&&b.google_maps_url)map.href=b.google_maps_url;document.querySelectorAll('a[data-cms-map]').forEach(a=>{if(b.google_maps_url)a.href=b.google_maps_url});
+    const fb=document.getElementById('cmsFacebook');if(fb&&b.facebook_url)fb.href=b.facebook_url;document.querySelectorAll('a[data-cms-facebook]').forEach(a=>{if(b.facebook_url)a.href=b.facebook_url});
+    const ig=document.getElementById('cmsInstagram');if(ig&&b.instagram_url)ig.href=b.instagram_url;document.querySelectorAll('a[data-cms-instagram]').forEach(a=>{if(b.instagram_url)a.href=b.instagram_url});
+    const tt=document.getElementById('cmsTikTok');if(tt&&b.tiktok_url)tt.href=b.tiktok_url;document.querySelectorAll('a[data-cms-tiktok]').forEach(a=>{if(b.tiktok_url)a.href=b.tiktok_url});
   }
 
   async function loadHome(){
