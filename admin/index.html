@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#006BB0">
   <title>Gul Printer — Admin Login</title>
   <style>
-    :root{--blue:#006BB0;--cyan:#00AEEF;--ink:#17384a;--muted:#6b7c86;--line:#dfe8ed;--soft:#f5f9fb;--danger:#b42318;--ok:#067647}
+    :root{--blue:#006BB0;--cyan:#00AEEF;--ink:#17384a;--muted:#6b7c86;--line:#dfe8ed;--danger:#b42318}
     *{box-sizing:border-box}
     body{margin:0;min-height:100vh;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(145deg,#f8fbfd,#eef7fb);color:var(--ink);display:grid;place-items:center;padding:24px}
     .wrap{width:min(100%,460px)}
@@ -21,55 +21,32 @@
     input:focus{outline:2px solid rgba(0,174,239,.18);border-color:var(--cyan)}
     button{width:100%;border:0;border-radius:12px;padding:13px 16px;font:inherit;font-weight:800;cursor:pointer}
     .primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;margin-top:18px}
-    .secondary{background:#fff;color:var(--blue);border:1px solid #bfd7e3;margin-top:10px}
-    .secondary[disabled],.primary[disabled]{opacity:.6;cursor:not-allowed}
+    .primary:disabled{opacity:.6;cursor:not-allowed}
     .note{font-size:12px;color:var(--muted);line-height:1.8;margin-top:16px;text-align:center}
     .msg{display:none;margin-top:16px;padding:11px 12px;border-radius:10px;font-size:13px;line-height:1.7}
     .msg.error{display:block;background:#fff1f0;color:var(--danger);border:1px solid #ffd2cf}
-    .msg.ok{display:block;background:#ecfdf3;color:var(--ok);border:1px solid #abefc6}
-    .panel{display:none}
-    .panel.active{display:block}
-    .admin-shell{text-align:center}
-    .admin-shell h2{margin:12px 0 8px}
-    .admin-shell p{color:var(--muted);line-height:1.8}
-    .status{display:inline-block;background:#ecfdf3;color:var(--ok);border:1px solid #abefc6;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800}
     .back{display:block;text-align:center;margin-top:18px;color:var(--blue);font-size:13px;font-weight:700}
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
-      <div class="brand">
-        <img src="/logo.svg" alt="Gul Printer">
-      </div>
+      <div class="brand"><img src="/logo.svg" alt="Gul Printer"></div>
+      <h1>ایڈمن لاگ اِن</h1>
+      <p class="lead">ویب سائٹ کے انتظام کے لیے محفوظ رسائی</p>
 
-      <div id="authPanel" class="panel active">
-        <h1>ایڈمن لاگ اِن</h1>
-        <p class="lead">ویب سائٹ کے انتظام کے لیے محفوظ رسائی</p>
+      <form id="loginForm">
+        <label for="email">ای میل</label>
+        <input id="email" type="email" value="gulprinter.web@gmail.com" readonly autocomplete="username">
 
-        <form id="loginForm">
-          <label for="email">ای میل</label>
-          <input id="email" type="email" value="gulprinter.web@gmail.com" readonly autocomplete="username">
+        <label for="password">پاس ورڈ</label>
+        <input id="password" type="password" minlength="8" required autocomplete="current-password">
 
-          <label for="password">پاس ورڈ</label>
-          <input id="password" type="password" minlength="8" required autocomplete="current-password">
+        <button id="loginBtn" class="primary" type="submit">لاگ اِن</button>
+      </form>
 
-          <button id="loginBtn" class="primary" type="submit">لاگ اِن</button>
-        </form>
-
-        <button id="setupBtn" class="secondary" type="button" disabled>ایڈمن اکاؤنٹ بن چکا ہے</button>
-
-        <p class="note">ایڈمن اکاؤنٹ فعال ہے۔ اب اپنے مقرر کردہ پاس ورڈ سے لاگ اِن کریں۔</p>
-        <div id="message" class="msg" role="status" aria-live="polite"></div>
-      </div>
-
-      <div id="adminPanel" class="panel admin-shell">
-        <span class="status">محفوظ لاگ اِن کامیاب</span>
-        <h2>Gul Printer Admin</h2>
-        <p>ایڈمن رسائی فعال ہے۔ اگلے مرحلے میں یہاں مکمل ڈیش بورڈ اور انتظامی حصے شامل کیے جائیں گے۔</p>
-        <button id="logoutBtn" class="secondary" type="button">لاگ آؤٹ</button>
-      </div>
-
+      <p class="note">صرف مقررہ ایڈمن اکاؤنٹ کو رسائی حاصل ہے۔</p>
+      <div id="message" class="msg" role="status" aria-live="polite"></div>
       <a class="back" href="/">ویب سائٹ پر واپس جائیں</a>
     </section>
   </main>
@@ -79,28 +56,16 @@
     const SUPABASE_URL = 'https://wuimmoxrcichlwwpnzbf.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_a93iXNGXcc3tdky9guWfIQ_VvEoQz3X';
     const ADMIN_EMAIL = 'gulprinter.web@gmail.com';
-
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const authPanel = document.getElementById('authPanel');
-    const adminPanel = document.getElementById('adminPanel');
-    const message = document.getElementById('message');
+
+    const form = document.getElementById('loginForm');
     const password = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
-    const setupBtn = document.getElementById('setupBtn');
+    const button = document.getElementById('loginBtn');
+    const message = document.getElementById('message');
 
-    function showMessage(text, type='ok') {
+    function showError(text) {
       message.textContent = text;
-      message.className = 'msg ' + type;
-    }
-
-    function clearMessage() {
-      message.textContent = '';
-      message.className = 'msg';
-    }
-
-    function setBusy(busy) {
-      loginBtn.disabled = busy;
-      setupBtn.disabled = busy;
+      message.className = 'msg error';
     }
 
     async function verifyAdmin(user) {
@@ -113,73 +78,40 @@
       return !error && !!data;
     }
 
-    async function showSession(session) {
-      if (!session) {
-        authPanel.classList.add('active');
-        adminPanel.classList.remove('active');
-        return;
+    async function redirectIfSignedIn() {
+      const { data: { session } } = await client.auth.getSession();
+      if (session && await verifyAdmin(session.user)) {
+        location.replace('/admin/dashboard.html');
       }
-      const allowed = await verifyAdmin(session.user);
-      if (!allowed) {
-        await client.auth.signOut();
-        showMessage('اس اکاؤنٹ کو ایڈمن اجازت حاصل نہیں ہے۔', 'error');
-        return;
-      }
-      clearMessage();
-      authPanel.classList.remove('active');
-      adminPanel.classList.add('active');
     }
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      clearMessage();
-      if (!password.value) return;
-      setBusy(true);
+      message.className = 'msg';
+      button.disabled = true;
+
       const { data, error } = await client.auth.signInWithPassword({
         email: ADMIN_EMAIL,
         password: password.value
       });
-      setBusy(false);
+
       if (error) {
-        showMessage('لاگ اِن نہیں ہوا۔ پاس ورڈ یا ای میل کی تصدیق چیک کریں۔', 'error');
+        button.disabled = false;
+        showError('لاگ اِن نہیں ہوا۔ پاس ورڈ دوبارہ چیک کریں۔');
         return;
       }
-      await showSession(data.session);
-    });
 
-    setupBtn.addEventListener('click', async () => {
-      clearMessage();
-      if (password.value.length < 8) {
-        showMessage('کم از کم 8 حروف کا مضبوط پاس ورڈ درج کریں۔', 'error');
+      if (!(await verifyAdmin(data.user))) {
+        await client.auth.signOut();
+        button.disabled = false;
+        showError('اس اکاؤنٹ کو ایڈمن اجازت حاصل نہیں ہے۔');
         return;
       }
-      setBusy(true);
-      const { data, error } = await client.auth.signUp({
-        email: ADMIN_EMAIL,
-        password: password.value
-      });
-      setBusy(false);
-      if (error) {
-        showMessage('اکاؤنٹ نہیں بن سکا۔ اگر پہلے سے بنا ہوا ہے تو لاگ اِن کریں۔', 'error');
-        return;
-      }
-      if (data.session) {
-        await showSession(data.session);
-      } else {
-        showMessage('اکاؤنٹ درخواست مکمل ہوئی۔ ای میل میں تصدیقی پیغام آئے تو اسے منظور کریں، پھر یہاں لاگ اِن کریں۔');
-      }
+
+      location.replace('/admin/dashboard.html');
     });
 
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-      await client.auth.signOut();
-      password.value = '';
-      authPanel.classList.add('active');
-      adminPanel.classList.remove('active');
-      showMessage('آپ لاگ آؤٹ ہو گئے ہیں۔');
-    });
-
-    client.auth.getSession().then(({ data }) => showSession(data.session));
-    client.auth.onAuthStateChange((_event, session) => showSession(session));
+    redirectIfSignedIn();
   </script>
 </body>
 </html>
