@@ -1,0 +1,11 @@
+const GP_URL='https://wuimmoxrcichlwwpnzbf.supabase.co';
+const GP_KEY='sb_publishable_a93iXNGXcc3tdky9guWfIQ_VvEoQz3X';
+const GP_EMAIL='gulprinter.web@gmail.com';
+const GP_BUCKET='site-media';
+const gp=window.supabase.createClient(GP_URL,GP_KEY);
+const gpEsc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+async function gpIsAdmin(user){if(!user||String(user.email||'').toLowerCase()!==GP_EMAIL)return false;const{data,error}=await gp.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();return !error&&!!data}
+async function gpRequireAdmin(){const{data:{session}}=await gp.auth.getSession();if(!session||!(await gpIsAdmin(session.user))){await gp.auth.signOut();location.replace('/admin/');return null}document.body.classList.remove('loading');return session}
+async function gpLogout(){await gp.auth.signOut();location.replace('/admin/')}
+async function gpCompress(file,maxSide=1400,quality=.84){if(!file||!file.type.startsWith('image/'))throw new Error('صرف تصویر منتخب کریں۔');if(file.size>15*1024*1024)throw new Error('تصویر بہت بڑی ہے۔');const url=await new Promise((r,j)=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.onerror=j;fr.readAsDataURL(file)});const im=await new Promise((r,j)=>{const x=new Image();x.onload=()=>r(x);x.onerror=j;x.src=url});let w=im.naturalWidth,h=im.naturalHeight,sc=Math.min(1,maxSide/Math.max(w,h));w=Math.max(1,Math.round(w*sc));h=Math.max(1,Math.round(h*sc));const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(im,0,0,w,h);const blob=await new Promise(r=>cv.toBlob(r,'image/webp',quality));if(!blob)throw new Error('تصویر تیار نہیں ہو سکی۔');return blob}
+async function gpUpload(file,folder,maxSide=1400,quality=.84){const blob=await gpCompress(file,maxSide,quality),path=folder+'/'+crypto.randomUUID()+'.webp';const{error}=await gp.storage.from(GP_BUCKET).upload(path,blob,{contentType:'image/webp',cacheControl:'31536000'});if(error)throw error;return{path,url:gp.storage.from(GP_BUCKET).getPublicUrl(path).data.publicUrl}}
