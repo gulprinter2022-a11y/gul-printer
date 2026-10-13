@@ -265,16 +265,16 @@ html[dir="rtl"] .primary-nav{margin-left:0;margin-right:auto}html[dir="rtl"] .co
         <div class="reveal">
           <span class="eyebrow" data-i18n="contact.eyebrow">Contact Gul Printer</span>
           <h2 data-i18n="contact.title">Let’s discuss your design or printing requirement</h2>
-          <p class="address" data-i18n="contact.address">Shop #08, Ground Floor, S.A Plaza, Babu Haider Road, Mohalla Jangi, Qissa Khwani Bazaar, Peshawar</p>
+          <p class="address" data-cms-address-text data-i18n="contact.address">Shop #08, Ground Floor, S.A Plaza, Babu Haider Road, Mohalla Jangi, Qissa Khwani Bazaar, Peshawar</p>
           <div class="contact-actions">
             <a class="btn btn-primary whatsapp-link" href="https://wa.me/923169827450?text=Assalam-o-Alaikum%2C%20I%20would%20like%20information%20about%20Gul%20Printer%20design%20and%20printing%20services." data-cms-wa data-context="general" data-i18n="contact.whatsapp">WhatsApp Us</a>
-            <a class="btn btn-ghost" href="tel:+923169827450" data-i18n="contact.call">Call Now</a>
-            <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://maps.app.goo.gl/ULaPmTkF6dTAzpLx9?g_st=ac" data-i18n="contact.map">Open in Google Maps</a>
+            <a class="btn btn-ghost" data-cms-call href="tel:+923169827450" data-i18n="contact.call">Call Now</a>
+            <a class="btn btn-ghost" data-cms-map target="_blank" rel="noopener" href="https://maps.app.goo.gl/ULaPmTkF6dTAzpLx9?g_st=ac" data-i18n="contact.map">Open in Google Maps</a>
           </div>
           <div class="contact-detail-list">
-            <span><b data-i18n="contact.phoneLabel">Phone / WhatsApp</b> +92 316 9827450</span>
-            <span><b data-i18n="contact.emailLabel">Email</b> gulprinter2022@gmail.com</span>
-            <span><b data-i18n="contact.holidayLabel">Weekly Holiday</b> <span data-i18n="contact.sunday">Sunday</span></span>
+            <span><b data-i18n="contact.phoneLabel">Phone / WhatsApp</b> <span data-cms-phone-text>+92 316 9827450</span></span>
+            <span><b data-i18n="contact.emailLabel">Email</b> <span data-cms-email-text>gulprinter2022@gmail.com</span></span>
+            <span><b data-i18n="contact.holidayLabel">Weekly Holiday</b> <span data-cms-holiday-text data-i18n="contact.sunday">Sunday</span></span>
           </div>
         </div>
         <div class="map-card reveal">
@@ -288,8 +288,8 @@ html[dir="rtl"] .primary-nav{margin-left:0;margin-right:auto}html[dir="rtl"] .co
     <div class="container footer-grid">
       <div class="footer-brand"><img src="logo.svg" alt="Gul Printer" /><p>From Vision to Print</p></div>
       <div><h3 data-i18n="footer.links">Quick Links</h3><a href="index.html" data-i18n="nav.home">Home</a><a href="about.html" data-i18n="nav.about">About</a><a href="services.html" data-i18n="nav.services">Services</a><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a><a href="contact.html" data-i18n="nav.contact">Contact</a></div>
-      <div><h3 data-i18n="footer.contact">Contact</h3><p>+92 316 9827450</p><p>gulprinter2022@gmail.com</p><p data-i18n="footer.city">Peshawar, Pakistan</p></div>
-      <div><h3 data-i18n="footer.social">Follow Us</h3><div class="socials"><a href="https://www.facebook.com/p/Gul-Printer-100076121053741/" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/gul_printer/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@gulprinter" target="_blank" rel="noopener">TikTok</a></div></div>
+      <div><h3 data-i18n="footer.contact">Contact</h3><p data-cms-phone-text>+92 316 9827450</p><p data-cms-email-text>gulprinter2022@gmail.com</p><p data-i18n="footer.city">Peshawar, Pakistan</p></div>
+      <div><h3 data-i18n="footer.social">Follow Us</h3><div class="socials"><a data-cms-facebook href="https://www.facebook.com/p/Gul-Printer-100076121053741/" target="_blank" rel="noopener">Facebook</a><a data-cms-instagram href="https://www.instagram.com/gul_printer/" target="_blank" rel="noopener">Instagram</a><a data-cms-tiktok href="https://www.tiktok.com/@gulprinter" target="_blank" rel="noopener">TikTok</a></div></div>
     </div>
     <div class="container footer-bottom"><span>© <span id="year"></span> Gul Printer. <span data-i18n="footer.rights">All rights reserved.</span></span><span><a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a> · <a href="terms.html" data-i18n="footer.terms">Terms & Conditions</a></span></div></footer>
 
@@ -346,7 +346,7 @@ document.querySelectorAll('.whatsapp-link').forEach(link=>{
     e.preventDefault();
     const lang=html.lang;
     const message=lang==='ur'?'السلام علیکم، میں آپ کی ڈیزائن/پرنٹنگ سروسز کے بارے میں معلومات چاہتا ہوں۔':'Assalam-o-Alaikum, I want information about your design/printing services.';
-    window.open(`https://wa.me/923169827450?text=${encodeURIComponent(message)}`,'_blank','noopener');
+    const wa=(window.GP_BUSINESS?.whatsapp||'+923169827450').replace(/\D/g,'');window.open(`https://wa.me/${wa}?text=${encodeURIComponent(message)}`,'_blank','noopener');
   });
 });
 
