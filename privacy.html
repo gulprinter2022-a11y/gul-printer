@@ -128,4 +128,5 @@ if(langBtn) langBtn.onclick=()=>{ur=!ur;localStorage.setItem('gp-lang',ur?'ur':'
 <script>
 (()=>{const menuToggle=document.querySelector('.menu-toggle');const navLinks=document.querySelector('.links');if(menuToggle&&navLinks){menuToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuToggle.setAttribute('aria-expanded',open?'true':'false');menuToggle.textContent=open?'✕':'☰';});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.textContent='☰';}));}})();
 </script>
+<script src="/cms-public.js"></script>
 </body></html>
